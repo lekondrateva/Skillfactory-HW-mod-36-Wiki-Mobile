@@ -4,12 +4,13 @@ import lib.CoreTestCase;
 import lib.ui.MainPageObject;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
+import static org.junit.Assert.assertEquals;
 
 public class SearchTest extends CoreTestCase {
 
     @Test
     public void testFindJava() {
-        //System.out.println("Success");
+
         MainPageObject mainPO = new MainPageObject(this.driver);
 
         WebElement searchInit = mainPO.waitForElementPresent(
@@ -23,13 +24,17 @@ public class SearchTest extends CoreTestCase {
                 "Cannot find search input"
         );
 
-        searchInput.sendKeys("Java");
+        searchInput.sendKeys("wfewfewfwegweg");
 
         WebElement expectedResult = mainPO.waitForElementPresent(
-                "xpath://*[./*[contains(@text,'Island of Indonesia')]]",
-                "Cannot find result 'Island of Indonesia' on 'Java' search"
+                "id:org.wikipedia:id/search_empty_text",
+                "Cannot find result 'Not result found' on 'wfewfewfwegweg' search"
         );
 
-        expectedResult.click();
+        String actualText = expectedResult.getText();
+        //System.out.println(actualText);
+        String expectedText = "No results found";
+        assertEquals(actualText, expectedText);
     }
+
 }
